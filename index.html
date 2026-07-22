@@ -3,21 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>土块的学术库</title>
-  <link rel="icon" href="academia.ico">
+  <!-- 增加 type 属性，强制规范读取，支持 ICO 的 Alpha 透明通道 -->
+  <link rel="icon" href="academia.ico" type="image/x-icon">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="个人学术知识库">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <!-- 确保移动端视口完美缩放 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
-  <!-- 引入默认的主题样式 -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-  
-  <!-- 引入侧边栏折叠插件样式 -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar.min.css" />
-  
-  <!-- 引入 IDEA (Darcula) 风格的代码高亮主题 -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-darcula.min.css">
-
-  <!-- 引入专业学术字体 -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Noto+Serif+SC:wght@600;900&display=swap" rel="stylesheet">
 
   <style>
@@ -28,7 +23,7 @@
       --text-muted: #cbd5e1; 
     }
 
-    /* ====== 1. 全局背景：整体提亮，呈现明快的北冰蓝 ====== */
+    /* ====== 1. 全局背景 ====== */
     body {
       background-color: #182848 !important; 
       background-image: radial-gradient(circle at top right, #2d5a88, #182848) !important;
@@ -42,12 +37,11 @@
 
     /* ====== 2. 侧边栏样式 ====== */
     .sidebar {
-      background: rgba(20, 32, 56, 0.85) !important;
+      background: rgba(20, 32, 56, 0.9) !important;
       border-right: 1px solid rgba(255, 255, 255, 0.15) !important;
       padding-top: 30px;
       box-shadow: 2px 0 15px rgba(0,0,0,0.4);
     }
-
     .sidebar h1 {
       font-family: 'Noto Serif SC', serif !important;
       color: var(--theme-color) !important;
@@ -58,7 +52,6 @@
       margin-bottom: 30px;
     }
     .sidebar h1 a { color: inherit; }
-
     .sidebar-nav > ul > li > p {
         color: #f1f5f9 !important; 
         font-weight: 600;
@@ -68,7 +61,6 @@
         padding-left: 15px;
         border-left: 3px solid var(--theme-color);
     }
-
     .sidebar-nav ul li a {
       color: var(--text-muted) !important;
       font-size: 13px;
@@ -80,12 +72,10 @@
       white-space: normal; 
       line-height: 1.4;
     }
-
     .sidebar-nav ul li a:hover {
       background: rgba(255, 255, 255, 0.1) !important;
       color: #ffffff !important; 
     }
-
     .sidebar-nav ul li.active > a {
       background: var(--theme-color-light) !important;
       color: var(--theme-color) !important;
@@ -93,7 +83,11 @@
       border-right: 3px solid var(--theme-color) !important;
     }
 
-    /* ====== 3. 主内容区：底部留白与面板圆角 ====== */
+    /* ====== 3. 主内容区与底部留白修复 ====== */
+    /* 强制父级容器底部留出足够的物理空间，确保不被滚动条吞噬 */
+    main {
+      padding-bottom: 120px !important; 
+    }
     .content {
       padding-top: 40px;
       display: flex;
@@ -103,7 +97,8 @@
     }
 
     .markdown-section {
-      background: rgba(11, 15, 25, 0.95) !important;
+      /* 提亮框内背景，使用更明亮的深灰蓝，保持与外层背景的区分 */
+      background: rgba(28, 43, 70, 0.92) !important;
       border: 1px solid rgba(255, 255, 255, 0.15);
       box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
       border-radius: 16px !important; 
@@ -113,20 +108,16 @@
       color: var(--text-main);
       position: relative;
       z-index: 10; 
-      margin-bottom: 100px !important; 
+      /* 框体自身的下外边距，配合父级的 padding 形成双重保险 */
+      margin-bottom: 60px !important; 
     }
 
-    .markdown-section h1,
-    .markdown-section h2,
-    .markdown-section h3,
-    .markdown-section h4,
-    .markdown-section h5,
-    .markdown-section h6 {
+    .markdown-section h1, .markdown-section h2, .markdown-section h3,
+    .markdown-section h4, .markdown-section h5, .markdown-section h6 {
       font-family: 'Noto Serif SC', serif !important;
       color: #ffffff !important; 
       font-weight: 600;
     }
-
     .markdown-section h1:first-of-type {
       color: var(--theme-color) !important;
       font-size: 38px !important;
@@ -135,21 +126,16 @@
       margin-bottom: 40px;
       border-bottom: none !important;
     }
-
-    .markdown-section h2, 
-    .markdown-section h3 {
+    .markdown-section h2, .markdown-section h3 {
       border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
       padding-bottom: 10px;
       margin-top: 35px;
     }
-
-    .markdown-section p, 
-    .markdown-section li {
+    .markdown-section p, .markdown-section li {
       font-size: 16px;
       line-height: 1.8;
-      color: #e2e8f0; 
+      color: #f1f5f9; /* 提亮正文字体适配提亮后的面板背景 */
     }
-
     .markdown-section a {
       color: var(--theme-color);
       text-decoration: none;
@@ -158,46 +144,39 @@
       text-decoration: underline;
     }
 
+    /* ====== 4. 表格 ====== */
     .markdown-section table {
       width: 100%;
       border-collapse: collapse;
       margin: 25px 0;
       background-color: transparent;
     }
-    
-    .markdown-section table th,
-    .markdown-section table td {
+    .markdown-section table th, .markdown-section table td {
       border: 1px solid rgba(255, 255, 255, 0.2);
       padding: 12px 15px;
-      color: #f1f5f9 !important; 
+      color: #ffffff !important; 
     }
-    
     .markdown-section table th {
-      background-color: rgba(16, 185, 129, 0.3); 
+      background-color: rgba(16, 185, 129, 0.4); 
       font-weight: 900;
       text-align: left;
     }
-    
     .markdown-section table tr:nth-child(odd) {
       background-color: rgba(255, 255, 255, 0.05);
     }
-    
     .markdown-section table tr:nth-child(even) {
-      background-color: rgba(0, 0, 0, 0.4); 
+      background-color: rgba(0, 0, 0, 0.3); 
     }
 
-    /* ====== 4. 彻底镇压 Vue.css 的瞎搞代码样式 ====== */
-    /* (1) 修复行内小段代码（去白底，换成 IDEA 橙黄色，保留小圆角） */
+    /* ====== 5. 代码块深度接管 ====== */
     .markdown-section code {
-      background-color: rgba(255, 255, 255, 0.1) !important;
+      background-color: rgba(0, 0, 0, 0.3) !important;
       color: #ffc66d !important; 
       padding: 3px 6px;
       border-radius: 4px;
       border: none !important;
       font-family: 'JetBrains Mono', Consolas, 'Courier New', monospace !important;
     }
-
-    /* (2) 修复多行代码容器：只给外层 pre 画框，消除恶心的“嵌套”感 */
     .markdown-section pre {
       background-color: #2b2b2b !important; 
       border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -205,23 +184,64 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.4) !important; 
       padding: 16px !important;
     }
-    
-    /* (3) 强行清空多行代码内部的 code 标签的背景和边框，让它完美融入外层 pre */
     .markdown-section pre code {
       background-color: transparent !important; 
       color: #a9b7c6 !important; 
       border: none !important;
-      border-radius: 0 !important; /* 清除内层圆角 */
-      padding: 0 !important;       /* 清除内层边距 */
+      border-radius: 0 !important; 
+      padding: 0 !important;       
       box-shadow: none !important;
     }
-
     .markdown-section blockquote {
       border-left: 4px solid var(--theme-color);
       background: rgba(255, 255, 255, 0.05);
       color: #cbd5e1;
       padding: 10px 20px;
       border-radius: 0 8px 8px 0;
+    }
+
+    /* ========================================= */
+    /* ====== 6. 移动端(手机)深度完美适配 ====== */
+    /* ========================================= */
+    @media screen and (max-width: 768px) {
+      /* 缩小主面板内边距，给手机屏幕留出阅读空间 */
+      .markdown-section {
+        padding: 30px 20px !important; 
+        border-radius: 12px !important; 
+        margin-top: 10px !important;
+      }
+      
+      /* 美化左下角抽屉按钮 (改造成圆形质感玻璃悬浮按钮) */
+      .sidebar-toggle {
+        background: var(--theme-color) !important; 
+        border: 2px solid rgba(255,255,255,0.2) !important;
+        border-radius: 50% !important; /* 强制变圆 */
+        width: 48px !important;
+        height: 48px !important;
+        bottom: 30px !important; /* 提高位置防止挡住屏幕底端 */
+        left: 20px !important;
+        padding: 12px !important;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.6), 0 0 15px rgba(16, 185, 129, 0.4) !important; /* 立体高光阴影 */
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+        transition: transform 0.2s ease !important;
+      }
+
+      /* 按钮按下的物理按压反馈 */
+      .sidebar-toggle:active {
+        transform: scale(0.9) !important; 
+      }
+
+      /* 重绘里面的三道横杠菜单线，使其居中纯白且圆润 */
+      .sidebar-toggle span {
+        background-color: #ffffff !important; 
+        width: 22px !important;
+        height: 3px !important;
+        border-radius: 2px !important;
+        margin: 0 !important;
+      }
     }
   </style>
 </head>
@@ -241,7 +261,6 @@
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
-  
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-java.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
 </body>
