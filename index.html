@@ -4,215 +4,186 @@
   <meta charset="UTF-8">
   <title>学术知识库 Beta 2.0</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="学术知识库">
+  <meta name="description" content="个人学术知识库">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   
-  <!-- 1. 引入默认的主题样式，保留 Docsify 的布局核心 -->
+  <!-- 引入默认的主题样式 -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
   
-  <!-- 2. 【字体升级】引入专业学术字体：学术 Sans-serif (Inter) + 标题 Serif (Open Sans) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Open+Sans:wght@700&display=swap" rel="stylesheet">
+  <!-- 引入专业学术字体：Inter (正文) + Noto Serif SC (标题) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Noto+Serif+SC:wght@600;900&display=swap" rel="stylesheet">
 
-  <!-- 3. 【视觉升级】注入你的专属赛博硬件 + 学术风格主题 CSS -->
   <style>
     :root {
-      /* 定义全局赛博绿 glow 核心颜色 */
-      --theme-color: #4ade80;
-      --theme-glow: rgba(74, 222, 128, 0.5);
-      --sidebar-text: #e2e8f0;
-      --panel-glow: rgba(74, 222, 128, 0.1);
+      /* 学术沉稳的翡翠绿 */
+      --theme-color: #10b981; 
+      --theme-color-light: rgba(16, 185, 129, 0.15);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --bg-dark: #0f172a;
     }
 
-    /* ====== 全局基础设定 ====== */
+    /* ====== 1. 全局背景：深邃的学术氛围 ====== */
     body {
-      background-color: #050505 !important;
-      color: #f8fafc !important;
-      /* 【字体升级】强制学术字体：Inter */
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif !important;
-      overflow: hidden; 
-      font-size: 15px; /* 全局字体稍稍大一点 */
+      background-color: var(--bg-dark) !important;
+      /* 干净的深蓝/黑渐变背景，替代原来的繁杂图片 */
+      background-image: radial-gradient(circle at top right, #1e293b, #020617);
+      color: var(--text-main) !important;
+      font-family: 'Inter', -apple-system, sans-serif !important;
+      font-size: 16px; 
     }
 
-    /* 全局背景图：复古硬件场景 (复刻 image_0.png 风格) */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
-      opacity: 0.7;
-      mix-blend-mode: screen;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    /* ====== 侧边栏定制 (Glass Sidebar) ====== */
+    /* ====== 2. 侧边栏修复与强化 ====== */
     .sidebar {
-      background: rgba(15, 23, 42, 0.55) !important;
-      backdrop-filter: blur(25px) saturate(200%);
-      -webkit-backdrop-filter: blur(25px) saturate(200%);
-      border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+      background: rgba(15, 23, 42, 0.8) !important;
+      border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
       padding-top: 30px;
+      /* 确保侧边栏的文字不会被背景影响 */
+      box-shadow: 2px 0 10px rgba(0,0,0,0.5);
     }
 
-    /* 侧边栏标题（学术知识库） */
     .sidebar h1 {
-      /* 【字体升级】学术标题 Open Sans */
-      font-family: 'Open Sans', sans-serif !important;
+      font-family: 'Noto Serif SC', serif !important;
       color: var(--theme-color) !important;
-      text-shadow: 0 0 10px var(--theme-glow);
-      font-size: 16px;
-      font-weight: bold;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 2px;
       text-align: center;
-      margin-bottom: 40px;
-      letter-spacing: 1px;
+      margin-bottom: 30px;
     }
+
     .sidebar h1 a { color: inherit; }
 
-    /* 侧边栏目录链接 (对应原来的 nav-item) */
+    /* 侧边栏层级标题 (例如：Java Standard Edition) */
+    .sidebar-nav > ul > li > p {
+        color: #cbd5e1 !important;
+        font-weight: 600;
+        font-size: 14px;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        padding-left: 15px;
+        border-left: 3px solid #334155;
+    }
+
+    /* 侧边栏可点击的链接 */
     .sidebar-nav ul li a {
-      color: var(--sidebar-text) !important;
-      font-size: 12px; /* 字体增大一些，学术清晰度 */
-      border: 1px solid transparent;
-      border-radius: 20px;
-      padding: 14px 24px;
-      margin: 10px 18px;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      display: block;
-      /* 【核心修正】确保鼠标悬停是手型 */
-      cursor: pointer !important; 
+      color: var(--text-muted) !important;
+      font-size: 13px;
+      padding: 8px 15px;
+      margin: 4px 10px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      cursor: pointer !important;
+      white-space: normal; /* 允许过长的标题换行 */
+      line-height: 1.4;
     }
 
     .sidebar-nav ul li a:hover {
-      background: rgba(255, 255, 255, 0.12) !important;
-      border-color: rgba(255, 255, 255, 0.15) !important;
-      transform: translateX(6px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      background: rgba(255, 255, 255, 0.05) !important;
+      color: var(--text-main) !important;
     }
 
-    /* 侧边栏当前选中的目录 (对应原来的 nav-active) */
     .sidebar-nav ul li.active > a {
-      background: rgba(74, 222, 128, 0.2) !important;
-      border-color: var(--theme-color) !important;
-      box-shadow: 0 4px 15px rgba(74, 222, 128, 0.15), inset 0 0 10px rgba(255, 255, 255, 0.1);
+      background: var(--theme-color-light) !important;
       color: var(--theme-color) !important;
-      text-shadow: 0 0 10px var(--theme-glow);
-      transform: translateX(6px);
-      font-weight: bold;
-      border-right: 1px solid var(--theme-color) !important; /* 覆盖 docsify 默认 */
+      font-weight: 600;
+      border-right: 3px solid var(--theme-color) !important;
     }
 
-    /* ====== 主内容区定制 (Central Panels) ====== */
-    main {
-      height: 100vh;
-      overflow-y: auto; 
-    }
-
+    /* ====== 3. 主内容区：绝对清晰，不再模糊 ====== */
     .content {
-      padding-top: 50px;
+      padding-top: 40px;
       display: flex;
       justify-content: center;
     }
 
-    /* 核心渲染面板 (对应原来 screenshot 中的模糊中央面板) */
     .markdown-section {
-      background: rgba(15, 20, 30, 0.5); /*  tint glass */
-      backdrop-filter: blur(28px) saturate(220%);
-      -webkit-backdrop-filter: blur(28px) saturate(220%);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-top: 1px solid rgba(255, 255, 255, 0.3);
-      border-left: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px var(--panel-glow);
-      border-radius: 36px;
-      padding: 60px 80px;
-      max-width: 950px;
-      color: #f8fafc;
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      /* 调整面板背景，减少 blur，增加不透明度，确保文字清晰 */
+      background: rgba(30, 41, 59, 0.85); 
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      border-radius: 16px;
+      padding: 50px 70px;
+      max-width: 900px;
+      color: var(--text-main);
+      /* 相对定位，确保层级在最上 */
+      position: relative;
+      z-index: 10; 
     }
 
-    /* ====== 【核心要求】中间 README.md 的标题增大！ ====== */
+    /* 首页 README 特大标题 */
     .markdown-section h1:first-of-type {
-      /* 【字体升级】学术大标题 Open Sans Serif */
-      font-family: 'Open Sans', sans-serif !important;
+      font-family: 'Noto Serif SC', serif !important;
       color: var(--theme-color) !important;
-      text-shadow: 0 0 20px var(--theme-glow);
-      font-weight: bold;
-      font-size: 36px !important; /* 特别增大 README 大标题！ */
-      letter-spacing: 2px;
+      font-size: 38px !important;
+      font-weight: 900;
       text-align: center;
-      margin-bottom: 50px;
+      margin-bottom: 40px;
       border-bottom: none !important;
-      padding-bottom: 0;
     }
 
-    /* 普通 Markdown 内部文字与标题定制 */
-    .markdown-section h1, 
+    /* 正文标题 (h2, h3) */
     .markdown-section h2, 
     .markdown-section h3 {
-      font-family: 'Open Sans', sans-serif !important;
-      color: var(--theme-color) !important;
-      text-shadow: 0 0 12px var(--theme-glow);
-      font-weight: bold;
-      border-bottom: 1px solid rgba(255,255,255,0.1) !important;
-      padding-bottom: 12px;
-      margin-top: 40px;
-      margin-bottom: 25px;
+      font-family: 'Noto Serif SC', serif !important;
+      color: #e2e8f0 !important;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+      padding-bottom: 10px;
+      margin-top: 35px;
     }
 
+    /* 正文内容 */
     .markdown-section p, 
-    .markdown-section li,
-    .markdown-section table {
-      font-size: 15px; /* 字体稍增大 */
-      line-height: 2.3;
-      color: #d1d5db;
-      font-family: 'Inter', sans-serif !important;
+    .markdown-section li {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #cbd5e1;
     }
 
+    /* 链接颜色 */
     .markdown-section a {
       color: var(--theme-color);
       text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.3s;
     }
-
     .markdown-section a:hover {
-      text-decoration: none;
-      border-color: var(--theme-color);
-      text-shadow: 0 0 8px var(--theme-glow);
+      text-decoration: underline;
     }
 
-    /* 代码块与引用块适配学术风格 */
+    /* 代码块：深色沉稳风格 */
     .markdown-section pre,
     .markdown-section code {
-      background: rgba(0, 0, 0, 0.7) !important;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #e2e8f0;
-      border-radius: 10px;
-      font-family: monospace !important; /* 代码还是用 monospace */
+      background: #020617 !important;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: #38bdf8;
+      border-radius: 8px;
+      font-family: 'Courier New', Courier, monospace !important;
     }
 
+    /* 引用块 */
     .markdown-section blockquote {
-      border-left: 5px solid var(--theme-color);
-      background: rgba(255, 255, 255, 0.06);
-      color: #babcbf;
-      border-radius: 0 10px 10px 0;
-      font-style: italic;
+      border-left: 4px solid var(--theme-color);
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-muted);
+      padding: 10px 20px;
+      border-radius: 0 8px 8px 0;
     }
   </style>
 </head>
 <body>
-  <div id="app">学术环境加载中...</div>
+  <div id="app">系统初始化中...</div>
   
-  <!-- 1. 核心 Docsify 基础配置 -->
   <script>
     window.$docsify = {
       name: '学术知识库 Beta 2.0',
-      repo: '', // 如果你要在右上角挂 GitHub 图标，写这里
-      loadSidebar: true, // 开启侧边栏
-      subMaxLevel: 2,    // 侧边栏目录深度
-      auto2top: true     // 切换页面后自动跳回顶部
+      repo: '', 
+      loadSidebar: true, 
+      subMaxLevel: 2,    
+      auto2top: true,
+      // 开启路由跳转，这有时能解决特殊字符路径点击不刷新的问题
+      routerMode: 'hash'
     }
   </script>
-  <!-- 2. 核心 JS 文件 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
 </body>
 </html>
