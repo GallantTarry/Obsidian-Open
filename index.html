@@ -26,14 +26,13 @@
       --theme-color-light: rgba(16, 185, 129, 0.15);
       --text-main: #f1f5f9; 
       --text-muted: #cbd5e1; 
-      --bg-dark: #0f172a;
     }
 
-    /* ====== 1. 全局背景：带有北冰蓝氛围的深邃渐变 ====== */
+    /* ====== 1. 全局背景：整体提亮，呈现明快的北冰蓝 ====== */
     body {
-      background-color: var(--bg-dark) !important;
-      background-image: radial-gradient(circle at top right, #0f2b4a, #020617) !important;
-      /* 核心修复：固定背景，解决页面过长时出现的背景断层问题 */
+      /* 提亮背景色，使其与框内深色产生明显区别 */
+      background-color: #182848 !important; 
+      background-image: radial-gradient(circle at top right, #2d5a88, #182848) !important;
       background-attachment: fixed !important; 
       background-size: cover !important;
       background-repeat: no-repeat !important;
@@ -44,10 +43,11 @@
 
     /* ====== 2. 侧边栏样式 ====== */
     .sidebar {
-      background: rgba(15, 23, 42, 0.85) !important;
-      border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+      /* 稍微调亮一点侧边栏以配合整体背景 */
+      background: rgba(20, 32, 56, 0.85) !important;
+      border-right: 1px solid rgba(255, 255, 255, 0.15) !important;
       padding-top: 30px;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+      box-shadow: 2px 0 15px rgba(0,0,0,0.4);
     }
 
     .sidebar h1 {
@@ -85,7 +85,7 @@
 
     .sidebar-nav ul li a:hover {
       background: rgba(255, 255, 255, 0.1) !important;
-      color: #f8fafc !important; 
+      color: #ffffff !important; 
     }
 
     .sidebar-nav ul li.active > a {
@@ -98,8 +98,6 @@
     /* ====== 3. 主内容区：底部留白与面板圆角 ====== */
     .content {
       padding-top: 40px;
-      /* 核心修复：在容器底部强制留出足够空间，确保面板圆角露出且拉到底不局促 */
-      padding-bottom: 120px !important; 
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -107,16 +105,20 @@
     }
 
     .markdown-section {
-      background: rgba(15, 23, 42, 0.9);
+      /* 框子内部采用偏暗的深邃蓝黑，与外层亮色背景形成对比与立体感 */
+      background: rgba(11, 15, 25, 0.95) !important;
       border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-      border-radius: 16px !important; /* 确保圆弧形在底部能够被明确看到 */
+      /* 增强阴影，让框子“浮”在背景上 */
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
+      border-radius: 16px !important; 
       padding: 50px 70px;
       max-width: 900px;
       width: 100%;
       color: var(--text-main);
       position: relative;
       z-index: 10; 
+      /* 核心修复：直接在面板底部增加外边距，拉到底部时强制预留 100px 缓冲空间，完美展现圆角 */
+      margin-bottom: 100px !important; 
     }
 
     .markdown-section h1,
@@ -126,7 +128,7 @@
     .markdown-section h5,
     .markdown-section h6 {
       font-family: 'Noto Serif SC', serif !important;
-      color: #f1f5f9 !important; 
+      color: #ffffff !important; 
       font-weight: 600;
     }
 
@@ -207,7 +209,7 @@
       color: #a9b7c6 !important; /* 默认浅灰色，其它关键词由下方的 prism 插件自动上色 */
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 8px !important;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4); 
     }
 
     .markdown-section blockquote {
