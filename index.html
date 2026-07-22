@@ -6,18 +6,193 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <!-- 引入默认的主题样式 -->
+  
+  <!-- 1. 引入默认的主题样式，保留 Docsify 的核心布局引擎 -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  
+  <!-- 2. 引入你专属的像素字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <!-- 3. 注入你的专属毛玻璃像素风主题 CSS -->
+  <style>
+    :root {
+      /* 定义全局的主题绿，你可以改成原来的 activeColor */
+      --theme-color: #4ade80;
+      --theme-glow: rgba(74, 222, 128, 0.5);
+    }
+
+    /* ====== 全局基础设定 ====== */
+    body {
+      background-color: #050505 !important;
+      color: #f8fafc !important;
+      /* 强制全局使用像素字体 */
+      font-family: 'Press Start 2P', monospace, sans-serif !important;
+      overflow: hidden; 
+    }
+
+    /* 扫描线效果 (覆盖在最顶层，不阻挡点击) */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1));
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* 环境背景图层 */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2000&auto=format&fit=crop') center/cover;
+      opacity: 0.6;
+      mix-blend-mode: screen;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* 隐藏默认滚动条 */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* ====== 侧边栏定制 (对应原来的 glass-sidebar) ====== */
+    .sidebar {
+      background: rgba(15, 23, 42, 0.45) !important;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+      padding-top: 30px;
+    }
+
+    /* 侧边栏标题（学术知识库） */
+    .sidebar h1 {
+      color: var(--theme-color) !important;
+      text-shadow: 0 0 10px var(--theme-glow);
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .sidebar h1 a { color: inherit; }
+
+    /* 侧边栏目录链接 (对应原来的 nav-item) */
+    .sidebar-nav ul li a {
+      color: #94a3b8 !important;
+      font-size: 11px;
+      border: 1px solid transparent;
+      border-radius: 20px;
+      padding: 12px 20px;
+      margin: 8px 15px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      display: block;
+    }
+
+    .sidebar-nav ul li a:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.1);
+      transform: translateX(4px);
+    }
+
+    /* 侧边栏当前选中的目录 (对应原来的 nav-active) */
+    .sidebar-nav ul li.active > a {
+      background: rgba(74, 222, 128, 0.15) !important;
+      border-color: var(--theme-color) !important;
+      box-shadow: 0 4px 15px rgba(74, 222, 128, 0.15), inset 0 0 10px rgba(255, 255, 255, 0.1);
+      color: var(--theme-color) !important;
+      text-shadow: 0 0 10px var(--theme-glow);
+      transform: translateX(4px);
+      border-right: 1px solid var(--theme-color) !important; /* 覆盖 docsify 默认行为 */
+    }
+
+    /* ====== 主内容区定制 (对应原来的 glass-panel) ====== */
+    main {
+      height: 100vh;
+      overflow-y: auto; /* 让主体内容可以滚动 */
+    }
+
+    .content {
+      padding-top: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* 核心渲染面板 */
+    .markdown-section {
+      background: rgba(15, 20, 30, 0.45);
+      backdrop-filter: blur(24px) saturate(200%);
+      -webkit-backdrop-filter: blur(24px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      border-left: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(74, 222, 128, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.05);
+      border-radius: 32px;
+      padding: 50px;
+      max-width: 900px;
+      color: #f8fafc;
+      transition: box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Markdown 内部文字与标题定制 (对应原来的 tab-title) */
+    .markdown-section h1, 
+    .markdown-section h2, 
+    .markdown-section h3, 
+    .markdown-section h4 {
+      color: var(--theme-color) !important;
+      text-shadow: 0 0 12px var(--theme-glow);
+      font-weight: bold;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 10px;
+    }
+
+    .markdown-section p, 
+    .markdown-section li,
+    .markdown-section table {
+      font-size: 12px;
+      line-height: 2.2;
+      color: #d1d5db;
+    }
+
+    .markdown-section a {
+      color: var(--theme-color);
+      text-decoration: none;
+    }
+
+    .markdown-section a:hover {
+      text-decoration: underline;
+      text-shadow: 0 0 8px var(--theme-glow);
+    }
+
+    /* 代码块与引用块暗黑化适配 */
+    .markdown-section pre,
+    .markdown-section code {
+      background: rgba(0, 0, 0, 0.6) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #e2e8f0;
+      border-radius: 8px;
+    }
+
+    .markdown-section blockquote {
+      border-left: 4px solid var(--theme-color);
+      background: rgba(255, 255, 255, 0.05);
+      color: #9ca3af;
+      border-radius: 0 8px 8px 0;
+    }
+  </style>
 </head>
 <body>
   <div id="app">加载中，请稍候...</div>
+  
+  <!-- 你的原版 Docsify 核心配置 -->
   <script>
     window.$docsify = {
       name: '学术知识库',
-      repo: '', // 如果你想在右上角挂 GitHub 仓库图标，可以填入你的仓库地址
-      loadSidebar: true, // 开启侧边栏
-      subMaxLevel: 2,    // 侧边栏目录深度
-      auto2top: true     // 切换页面后自动跳回顶部
+      repo: '', 
+      loadSidebar: true, 
+      subMaxLevel: 2,    
+      auto2top: true     
     }
   </script>
   <!-- 核心 JS 文件 -->
