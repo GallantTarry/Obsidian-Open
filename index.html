@@ -15,6 +15,9 @@
   <!-- 引入侧边栏折叠插件样式 (实现下拉框必须) -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar.min.css" />
   
+  <!-- 引入 IDEA (Darcula) 风格的代码高亮主题，恢复彩色代码风格 -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-darcula.min.css">
+
   <!-- 引入专业学术字体：Inter (正文) + Noto Serif SC (标题) -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Noto+Serif+SC:wght@600;900&display=swap" rel="stylesheet">
 
@@ -23,15 +26,15 @@
       /* 学术沉稳的翡翠绿 */
       --theme-color: #10b981; 
       --theme-color-light: rgba(16, 185, 129, 0.15);
-      --text-main: #ffffff; /* 提亮正文主体，解决暗沉 */
-      --text-muted: #e2e8f0; 
+      /* 提亮正文主体，但去除了纯白(#ffffff)，使用柔和的雪白(#f1f5f9)防止刺眼 */
+      --text-main: #f1f5f9; 
+      --text-muted: #cbd5e1; 
       --bg-dark: #0f172a;
     }
 
     /* ====== 1. 全局背景：带有北冰蓝氛围的深邃渐变 ====== */
     body {
       background-color: var(--bg-dark) !important;
-      /* 顶部融入偏北冰蓝的色调，保持通透感同时不吞没字体 */
       background-image: radial-gradient(circle at top right, #0f2b4a, #020617);
       color: var(--text-main) !important;
       font-family: 'Inter', -apple-system, sans-serif !important;
@@ -60,7 +63,7 @@
 
     /* 侧边栏层级标题 */
     .sidebar-nav > ul > li > p {
-        color: #ffffff !important; /* 提亮至纯白 */
+        color: #f1f5f9 !important; /* 柔和白 */
         font-weight: 600;
         font-size: 14px;
         margin-top: 15px;
@@ -84,7 +87,7 @@
 
     .sidebar-nav ul li a:hover {
       background: rgba(255, 255, 255, 0.1) !important;
-      color: #ffffff !important; /* 悬浮时完全变白 */
+      color: #f8fafc !important; /* 悬浮时稍亮，但不是死白 */
     }
 
     .sidebar-nav ul li.active > a {
@@ -104,7 +107,7 @@
     }
 
     .markdown-section {
-      background: rgba(15, 23, 42, 0.9); /* 加深底板背景以衬托白色字体 */
+      background: rgba(15, 23, 42, 0.9);
       border: 1px solid rgba(255, 255, 255, 0.15);
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
       border-radius: 16px;
@@ -114,12 +117,11 @@
       color: var(--text-main);
       position: relative;
       z-index: 10; 
-      /* 核心修复：确保窗口足够长，且底部预留出足够的缓冲距离，拉到底不再局促 */
       min-height: calc(100vh - 120px);
       margin-bottom: 80px; 
     }
 
-    /* 强制所有层级标题纯白，解决原本灰色太暗的问题 */
+    /* 核心修复：强制接管所有层级标题 (h1-h6)，解决 ## 和 ### 等标题灰度太大的问题 */
     .markdown-section h1,
     .markdown-section h2,
     .markdown-section h3,
@@ -127,11 +129,11 @@
     .markdown-section h5,
     .markdown-section h6 {
       font-family: 'Noto Serif SC', serif !important;
-      color: #ffffff !important; 
+      color: #f1f5f9 !important; /* 统一提亮，不让副标题变暗灰 */
       font-weight: 600;
     }
 
-    /* 首页 README 特大标题 */
+    /* 首页 README 特大标题，保持主题色 */
     .markdown-section h1:first-of-type {
       color: var(--theme-color) !important;
       font-size: 38px !important;
@@ -144,7 +146,7 @@
     /* 正文标题底边框 */
     .markdown-section h2, 
     .markdown-section h3 {
-      border-bottom: 1px solid rgba(255,255,255,0.15) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
       padding-bottom: 10px;
       margin-top: 35px;
     }
@@ -154,7 +156,7 @@
     .markdown-section li {
       font-size: 16px;
       line-height: 1.8;
-      color: #f1f5f9; /* 提亮正文颜色 */
+      color: #e2e8f0; /* 正文比标题稍微低一个亮度，形成层次感 */
     }
 
     .markdown-section a {
@@ -165,7 +167,7 @@
       text-decoration: underline;
     }
 
-    /* ====== 4. 表格修复：解决黑一行白字体看不见的问题 ====== */
+    /* ====== 4. 表格修复 ====== */
     .markdown-section table {
       width: 100%;
       border-collapse: collapse;
@@ -177,38 +179,43 @@
     .markdown-section table td {
       border: 1px solid rgba(255, 255, 255, 0.2);
       padding: 12px 15px;
-      color: #ffffff !important; /* 强制白字，确保高亮 */
+      color: #f1f5f9 !important; /* 柔和白字，确保斑马纹上都能看清 */
     }
     
     .markdown-section table th {
-      background-color: rgba(16, 185, 129, 0.3); /* 表头使用主题色半透明 */
+      background-color: rgba(16, 185, 129, 0.3); 
       font-weight: 900;
       text-align: left;
     }
     
     .markdown-section table tr:nth-child(odd) {
-      background-color: rgba(255, 255, 255, 0.05); /* 奇数行略微偏白 */
+      background-color: rgba(255, 255, 255, 0.05);
     }
     
     .markdown-section table tr:nth-child(even) {
-      background-color: rgba(0, 0, 0, 0.4); /* 偶数行加深黑度，形成高对比斑马纹 */
+      background-color: rgba(0, 0, 0, 0.4); 
     }
 
-    /* 代码块：深色沉稳风格 */
+    /* ====== 5. IDEA 风格代码块 ====== */
+    /* 移除了强行指定代码颜色的代码，将着色权交还给 Prism.js */
+    .markdown-section pre {
+      background: #2b2b2b !important; /* 经典的 IDEA Darcula 深灰背景色 */
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* 增加代码块立体感 */
+    }
+    
     .markdown-section pre,
     .markdown-section code {
-      background: #020617 !important;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #38bdf8;
-      border-radius: 8px;
-      font-family: 'Courier New', Courier, monospace !important;
+      /* 加入 JetBrains 字体，更有写 Java 的感觉 */
+      font-family: 'JetBrains Mono', Consolas, 'Courier New', monospace !important;
     }
 
     /* 引用块 */
     .markdown-section blockquote {
       border-left: 4px solid var(--theme-color);
       background: rgba(255, 255, 255, 0.05);
-      color: #e2e8f0;
+      color: #cbd5e1;
       padding: 10px 20px;
       border-radius: 0 8px 8px 0;
     }
@@ -219,17 +226,20 @@
   
   <script>
     window.$docsify = {
-      name: '土块的学术库', // 修改网页名称
+      name: '土块的学术库', 
       repo: '', 
       loadSidebar: true, 
-      subMaxLevel: 3, // 支持最高3层级的目录提取
-      sidebarDisplayLevel: 1, // 结合插件，开启侧边栏折叠，默认展开层级为1
+      subMaxLevel: 3, 
+      sidebarDisplayLevel: 1, 
       auto2top: true,
       routerMode: 'hash'
     }
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-  <!-- 引入侧边栏折叠插件 JS：提供文件夹的下拉框功能 -->
   <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
+  
+  <!-- 引入常用语言高亮支持 (如果你的笔记里有 Java 代码，加上这个会让高亮更精准) -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-java.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
 </body>
 </html>
