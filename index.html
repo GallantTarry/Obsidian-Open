@@ -2,13 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>学术知识库 Beta 2.0</title>
+  <title>土块的学术库</title>
+  <!-- 设置 ico 图标 -->
+  <link rel="icon" href="academic.ico">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="个人学术知识库">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   
   <!-- 引入默认的主题样式 -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  
+  <!-- 引入侧边栏折叠插件样式 (实现下拉框必须) -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar.min.css" />
   
   <!-- 引入专业学术字体：Inter (正文) + Noto Serif SC (标题) -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Noto+Serif+SC:wght@600;900&display=swap" rel="stylesheet">
@@ -18,16 +23,16 @@
       /* 学术沉稳的翡翠绿 */
       --theme-color: #10b981; 
       --theme-color-light: rgba(16, 185, 129, 0.15);
-      --text-main: #f1f5f9;
-      --text-muted: #94a3b8;
+      --text-main: #ffffff; /* 提亮正文主体，解决暗沉 */
+      --text-muted: #e2e8f0; 
       --bg-dark: #0f172a;
     }
 
-    /* ====== 1. 全局背景：深邃的学术氛围 ====== */
+    /* ====== 1. 全局背景：带有北冰蓝氛围的深邃渐变 ====== */
     body {
       background-color: var(--bg-dark) !important;
-      /* 干净的深蓝/黑渐变背景，替代原来的繁杂图片 */
-      background-image: radial-gradient(circle at top right, #1e293b, #020617);
+      /* 顶部融入偏北冰蓝的色调，保持通透感同时不吞没字体 */
+      background-image: radial-gradient(circle at top right, #0f2b4a, #020617);
       color: var(--text-main) !important;
       font-family: 'Inter', -apple-system, sans-serif !important;
       font-size: 16px; 
@@ -35,10 +40,9 @@
 
     /* ====== 2. 侧边栏修复与强化 ====== */
     .sidebar {
-      background: rgba(15, 23, 42, 0.8) !important;
-      border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+      background: rgba(15, 23, 42, 0.85) !important;
+      border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
       padding-top: 30px;
-      /* 确保侧边栏的文字不会被背景影响 */
       box-shadow: 2px 0 10px rgba(0,0,0,0.5);
     }
 
@@ -54,15 +58,15 @@
 
     .sidebar h1 a { color: inherit; }
 
-    /* 侧边栏层级标题 (例如：Java Standard Edition) */
+    /* 侧边栏层级标题 */
     .sidebar-nav > ul > li > p {
-        color: #cbd5e1 !important;
+        color: #ffffff !important; /* 提亮至纯白 */
         font-weight: 600;
         font-size: 14px;
         margin-top: 15px;
         margin-bottom: 5px;
         padding-left: 15px;
-        border-left: 3px solid #334155;
+        border-left: 3px solid var(--theme-color);
     }
 
     /* 侧边栏可点击的链接 */
@@ -74,13 +78,13 @@
       border-radius: 6px;
       transition: all 0.2s ease;
       cursor: pointer !important;
-      white-space: normal; /* 允许过长的标题换行 */
+      white-space: normal; 
       line-height: 1.4;
     }
 
     .sidebar-nav ul li a:hover {
-      background: rgba(255, 255, 255, 0.05) !important;
-      color: var(--text-main) !important;
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: #ffffff !important; /* 悬浮时完全变白 */
     }
 
     .sidebar-nav ul li.active > a {
@@ -90,30 +94,45 @@
       border-right: 3px solid var(--theme-color) !important;
     }
 
-    /* ====== 3. 主内容区：绝对清晰，不再模糊 ====== */
+    /* ====== 3. 主内容区：足够长，预留底部滚动空间 ====== */
     .content {
       padding-top: 40px;
       display: flex;
       justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
     }
 
     .markdown-section {
-      /* 调整面板背景，减少 blur，增加不透明度，确保文字清晰 */
-      background: rgba(30, 41, 59, 0.85); 
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(15, 23, 42, 0.9); /* 加深底板背景以衬托白色字体 */
+      border: 1px solid rgba(255, 255, 255, 0.15);
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
       border-radius: 16px;
       padding: 50px 70px;
       max-width: 900px;
+      width: 100%;
       color: var(--text-main);
-      /* 相对定位，确保层级在最上 */
       position: relative;
       z-index: 10; 
+      /* 核心修复：确保窗口足够长，且底部预留出足够的缓冲距离，拉到底不再局促 */
+      min-height: calc(100vh - 120px);
+      margin-bottom: 80px; 
+    }
+
+    /* 强制所有层级标题纯白，解决原本灰色太暗的问题 */
+    .markdown-section h1,
+    .markdown-section h2,
+    .markdown-section h3,
+    .markdown-section h4,
+    .markdown-section h5,
+    .markdown-section h6 {
+      font-family: 'Noto Serif SC', serif !important;
+      color: #ffffff !important; 
+      font-weight: 600;
     }
 
     /* 首页 README 特大标题 */
     .markdown-section h1:first-of-type {
-      font-family: 'Noto Serif SC', serif !important;
       color: var(--theme-color) !important;
       font-size: 38px !important;
       font-weight: 900;
@@ -122,13 +141,10 @@
       border-bottom: none !important;
     }
 
-    /* 正文标题 (h2, h3) */
+    /* 正文标题底边框 */
     .markdown-section h2, 
     .markdown-section h3 {
-      font-family: 'Noto Serif SC', serif !important;
-      color: #e2e8f0 !important;
-      font-weight: 600;
-      border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+      border-bottom: 1px solid rgba(255,255,255,0.15) !important;
       padding-bottom: 10px;
       margin-top: 35px;
     }
@@ -138,10 +154,9 @@
     .markdown-section li {
       font-size: 16px;
       line-height: 1.8;
-      color: #cbd5e1;
+      color: #f1f5f9; /* 提亮正文颜色 */
     }
 
-    /* 链接颜色 */
     .markdown-section a {
       color: var(--theme-color);
       text-decoration: none;
@@ -150,11 +165,40 @@
       text-decoration: underline;
     }
 
+    /* ====== 4. 表格修复：解决黑一行白字体看不见的问题 ====== */
+    .markdown-section table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0;
+      background-color: transparent;
+    }
+    
+    .markdown-section table th,
+    .markdown-section table td {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 12px 15px;
+      color: #ffffff !important; /* 强制白字，确保高亮 */
+    }
+    
+    .markdown-section table th {
+      background-color: rgba(16, 185, 129, 0.3); /* 表头使用主题色半透明 */
+      font-weight: 900;
+      text-align: left;
+    }
+    
+    .markdown-section table tr:nth-child(odd) {
+      background-color: rgba(255, 255, 255, 0.05); /* 奇数行略微偏白 */
+    }
+    
+    .markdown-section table tr:nth-child(even) {
+      background-color: rgba(0, 0, 0, 0.4); /* 偶数行加深黑度，形成高对比斑马纹 */
+    }
+
     /* 代码块：深色沉稳风格 */
     .markdown-section pre,
     .markdown-section code {
       background: #020617 !important;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       color: #38bdf8;
       border-radius: 8px;
       font-family: 'Courier New', Courier, monospace !important;
@@ -163,8 +207,8 @@
     /* 引用块 */
     .markdown-section blockquote {
       border-left: 4px solid var(--theme-color);
-      background: rgba(255, 255, 255, 0.02);
-      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
       padding: 10px 20px;
       border-radius: 0 8px 8px 0;
     }
@@ -175,15 +219,17 @@
   
   <script>
     window.$docsify = {
-      name: '学术知识库 Beta 2.0',
+      name: '土块的学术库', // 修改网页名称
       repo: '', 
       loadSidebar: true, 
-      subMaxLevel: 2,    
+      subMaxLevel: 3, // 支持最高3层级的目录提取
+      sidebarDisplayLevel: 1, // 结合插件，开启侧边栏折叠，默认展开层级为1
       auto2top: true,
-      // 开启路由跳转，这有时能解决特殊字符路径点击不刷新的问题
       routerMode: 'hash'
     }
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <!-- 引入侧边栏折叠插件 JS：提供文件夹的下拉框功能 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
 </body>
 </html>
