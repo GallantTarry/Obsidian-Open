@@ -1,6 +1,6 @@
 <div align="center">
   
-  # ⚔️ 欢迎来到 GallantTarry 的精神时光屋
+  # 💻 欢迎来到 [TuKuai](https://gallanttarry.github.io/TuKuai/) 的精神时光屋
   
   <p><i>“在画布与音符中寻找生活的质感，在底层逻辑与像素世界里保持学徒之心。”</i></p>
 
