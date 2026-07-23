@@ -5,7 +5,7 @@
   <title>土块的宝藏库</title>
   <link rel="icon" href="academia.ico" type="image/x-icon">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="个人学术知识库">
+  <meta name="description" content="宝藏库">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
@@ -262,22 +262,21 @@
     }
 
     /* ========================================= */
-    /* ====== 6. 悬浮辅助按钮 (iPhone小白点) ====== */
+    /* ====== 6. 悬浮辅助按钮 (灰色圆点版) ====== */
     /* ========================================= */
     
-    /* 强制在全端显示悬浮按钮，并改为类似苹果辅助触控的圆点风格 */
     .sidebar-toggle {
       display: flex !important;
-      background: rgba(35, 35, 38, 0.6) !important; /* 半透明深黑灰底色 */
-      backdrop-filter: blur(12px) !important; /* 毛玻璃效果 */
+      background: rgba(35, 35, 38, 0.6) !important; 
+      backdrop-filter: blur(12px) !important; 
       -webkit-backdrop-filter: blur(12px) !important;
-      border: 1px solid rgba(255, 255, 255, 0.08) !important;
-      border-radius: 50% !important; /* 彻底变圆 */
+      border: 1px solid rgba(255, 255, 255, 0.05) !important;
+      border-radius: 50% !important; 
       width: 52px !important;
       height: 52px !important;
       bottom: 30px !important;
-      right: 30px !important; /* 放到右下角，符合操作习惯 */
-      left: auto !important; /* 清除默认的左对齐 */
+      right: 30px !important; 
+      left: auto !important; 
       padding: 0 !important;
       justify-content: center !important;
       align-items: center !important;
@@ -286,32 +285,30 @@
       transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.2s ease !important;
     }
 
-    /* 交互动效：按压回缩果冻感 */
     .sidebar-toggle:active {
       transform: scale(0.85) !important; 
       background: rgba(55, 55, 60, 0.8) !important;
     }
 
-    /* 隐藏 Docsify 自带的丑陋汉堡菜单线 */
     .sidebar-toggle span {
       display: none !important;
     }
 
-    /* 用伪元素绘制悬浮球中心的小白圈 */
+    /* 中心内圈：改为低调的灰色 */
     .sidebar-toggle::after {
       content: '' !important;
       display: block !important;
       width: 22px !important;
       height: 22px !important;
       border-radius: 50% !important;
-      background: rgba(255, 255, 255, 0.75) !important;
-      box-shadow: 0 0 8px rgba(255, 255, 255, 0.15) !important;
+      background: rgba(113, 113, 122, 0.8) !important; /* 沉稳的灰色 (Zinc 500) */
+      box-shadow: 0 0 8px rgba(113, 113, 122, 0.15) !important;
       transition: background 0.2s ease !important;
     }
 
-    /* PC端鼠标悬停时中心白点微亮 */
+    /* 鼠标悬停时：灰点微微提亮 */
     .sidebar-toggle:hover::after {
-      background: rgba(255, 255, 255, 0.95) !important;
+      background: rgba(161, 161, 170, 0.95) !important; /* 稍微亮一点的灰 (Zinc 400) */
     }
 
     /* ========================================= */
@@ -329,7 +326,6 @@
         background: transparent !important;
       }
       
-      /* 手机端适当微调小白点的位置和大小 */
       .sidebar-toggle {
         width: 48px !important;
         height: 48px !important;
