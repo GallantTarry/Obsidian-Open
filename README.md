@@ -4,8 +4,6 @@
   <img src="https://img.shields.io/badge/Profile-TuKuai-000000?style=for-the-badge&logo=github&logoColor=white" alt="TuKuai"/>
 </a>
   
- # 💻 欢迎来到TuKuai的精神时光屋
-
 <p><i>“在画布与音符中寻找生活的质感，在底层逻辑与像素世界里保持学徒之心。”</i></p>
 
   <a href="https://steamcommunity.com/id/ImShaoXiaBieZou/" target="_blank">
