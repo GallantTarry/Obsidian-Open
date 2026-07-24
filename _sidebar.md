@@ -1,9 +1,6 @@
 * 首页
   * [README](README.md)
-* 文学
-    * [语言和艺术](research/%E6%96%87%E5%AD%A6/%E8%AF%AD%E8%A8%80%E5%92%8C%E8%89%BA%E6%9C%AF.md)
-* 计算机
-    * [为什么偏偏是8位？：字节（Byte） 计算机的1和0](research/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%81%8F%E5%81%8F%E6%98%AF8%E4%BD%8D%EF%BC%9F%EF%BC%9A%E5%AD%97%E8%8A%82%EF%BC%88Byte%EF%BC%89%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%841%E5%92%8C0.md)
-    * [代码世界的0和1](research/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E4%BB%A3%E7%A0%81%E4%B8%96%E7%95%8C%E7%9A%840%E5%92%8C1.md)
-    * [计算机中的bit,Byte,KB, MB, GB, TB 等单位是怎么换算的？](research/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84bit%2CByte%2CKB%2C%20MB%2C%20GB%2C%20TB%20%E7%AD%89%E5%8D%95%E4%BD%8D%E6%98%AF%E6%80%8E%E4%B9%88%E6%8D%A2%E7%AE%97%E7%9A%84%EF%BC%9F.md)
-    * [计算机宏伟大厦](research/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%8F%E4%BC%9F%E5%A4%A7%E5%8E%A6.md)
+* Geek空间
+    * [emoji表情包](research/Geek%E7%A9%BA%E9%97%B4/emoji%E8%A1%A8%E6%83%85%E5%8C%85.md)
+* 文字空间
+    * [语言和艺术](research/%E6%96%87%E5%AD%97%E7%A9%BA%E9%97%B4/%E8%AF%AD%E8%A8%80%E5%92%8C%E8%89%BA%E6%9C%AF.md)
